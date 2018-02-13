@@ -1,0 +1,261 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+background = #31363b
+background-alt = #4d4d4d
+foreground = #eff0f1
+foreground-alt = #bdc3c7
+primary = #3daee9
+secondary = #27ae60
+alert = #da4453
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[bar/main]
+monitor = ${env:MONITOR:LVDS-1}
+width = 100%
+height = 27
+offset-x = 0
+offset-y = 0
+
+;background = ${xrdb:color9}
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+overline-size = 2
+overline-color = #f00
+underline-size = 2
+underline-color = #00f
+
+border-bottom-size = 2
+border-bottom-color = #333
+
+padding-left = 0
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10
+font-1 = FontAwesome:pixelsize=14;0
+font-2 = unifont:fontformat=truetype:size=6:heavy;-2
+font-3 = siji:pixelsize=10
+font-4 = symbolFont:pixelsize=10
+
+modules-left = i3
+modules-center = xwindow
+modules-right = pulseaudio cpu wlan battery temperature date mail cal todo update-inside
+
+tray-position = right
+tray-padding = 2
+tray-transparent = false
+tray-background = ${colors.background}
+
+wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+[module/update-inside]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+click-left = xfce4-terminal -e "update-inside"
+
+[module/mail]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+click-left = open-or-focus evolution evolution 
+
+[module/cal]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+click-left = flatpak run org.gnome.Calendar &
+
+[module/todo]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+click-left = open-or-focus todo.md open-todo.sh
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = │
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+interval = 10
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label =  %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 10
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+label = %percentage_used%%
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 10
+
+format-connected =  <label-connected>
+
+label-connected = %essid%
+label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+
+
+[module/date]
+type = internal/date
+interval = 30
+
+date =
+date-alt = " %d-%m-%Y"
+
+time = %H:%M
+time-alt =
+
+format-prefix =
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% %time%
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+
+format-charging =   <label-charging>
+
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-full-prefix = "A "
+format-full-prefix-foreground = ${colors.foreground-alt}
+
+ramp-capacity-2 = 
+ramp-capacity-1 = 
+ramp-capacity-0 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.alert}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`)
+; If not, uses default sink
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted = muted
+label-muted-foreground = #66
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+; vim:ft=dosini
