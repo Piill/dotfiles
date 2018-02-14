@@ -193,6 +193,9 @@ client.focused_inactive #4d4d4d 	#4d4d4d 	 #1A1A1A #1A1A1A
 client.unfocused        #4d4d4d 	#4d4d4d 	 #8C8587 #1A1A1A
 client.urgent           #3B89B5 	#3B89B5 	 #a5a5a5 #1A1A1A
 client.background       #4d4d4d
+
+feh --bg-scale ~/Cruft/bg/bg.png
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
