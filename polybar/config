@@ -113,7 +113,7 @@ label-mode-background = ${colors.primary}
 
 label-focused = %index%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
+label-focused-underline= ${colors.background-alt}
 label-focused-padding = 2
 
 label-unfocused = %index%
@@ -151,12 +151,13 @@ inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 
+
 [module/cpu]
 type = internal/cpu
 interval = 10
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-label =  %percentage%%
+label =   %percentage%%
 
 [module/memory]
 type = internal/memory
