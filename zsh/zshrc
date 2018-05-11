@@ -84,3 +84,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export IDF_PATH=~/esp/esp-idf
+export PATH="$PATH:$HOME/Arduino/hardware/espressif/esp32/tools/xtensa-esp32-elf/bin"
