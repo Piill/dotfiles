@@ -21,3 +21,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+export IDF_PATH=~/esp/esp-idf

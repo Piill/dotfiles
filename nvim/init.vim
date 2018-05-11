@@ -63,8 +63,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-autocmd FileType c if stridx(expand("%:p"), "avr") > -1 |
-			\ let b:syntastic_checkers = ["make"] | endif
+autocmd FileType c let b:syntastic_checkers = ["make"]
+
+" Snipmate and friends
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -79,21 +84,21 @@ autocmd BufWinEnter *.* silent loadview
 
 " Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
-    nnoremap <Up>    :resize +2<CR>
-    nnoremap <Down>  :resize -2<CR>
-    nnoremap <Left>  :vertical resize +2<CR>
-    nnoremap <Right> :vertical resize -2<CR>
+	nnoremap <Up>    :resize +2<CR>
+	nnoremap <Down>  :resize -2<CR>
+	nnoremap <Left>  :vertical resize +2<CR>
+	nnoremap <Right> :vertical resize -2<CR>
 endif
 
 " Markdown ctags support
 let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-	\ }
+			\ 'ctagstype' : 'markdown',
+			\ 'kinds' : [
+			\ 'h:Heading_L1',
+			\ 'i:Heading_L2',
+			\ 'k:Heading_L3'
+			\ ]
+			\ }
 
 map <c-h> :bprevious<cr>
 map <c-l> :bnext<cr>
@@ -101,4 +106,5 @@ map <c-l> :bnext<cr>
 map F9:!make &
 
 
-" autocmd vimenter * NERDTree
+" Toggle line number with Ctrl-N
+nmap <C-N><C-N> :exec &nu==&rnu? "se nu!" : "se rnu!"<CR>
